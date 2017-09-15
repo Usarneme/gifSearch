@@ -18,7 +18,7 @@ class App extends Component {
 
   performSearch = (query = 'grand') => {
     // String literal to allow interpolation of query variable
-    fetch(`http://api.giphy.com/v1/gifs/search?q=${query}&limit=20&api_key=dc6zaTOxFJmzC`)
+    fetch(`https://api.giphy.com/v1/gifs/search?q=${query}&limit=20&api_key=dc6zaTOxFJmzC`)
     .then(response => response.json())
     .then(responseData => {
       console.log('Search data fetched.')
