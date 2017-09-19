@@ -37,21 +37,26 @@ class App extends Component {
     });  
   }
 
-  infinitySearch = () => {
-    // String literal to allow interpolation of query variable
-    fetch(`https://api.giphy.com/v1/gifs/search?q=${this.state.query}&limit=10&offset=${this.state.offset}&api_key=dc6zaTOxFJmzC`)
-    .then(response => response.json())
-    .then(responseData => {
-      console.log('Infinity data fetched.');
-      this.setState({ 
-        gifs: this.state.gifs.concat(responseData.data),
-        offset: (responseData.pagination.offset+10),
-        loading: false
-      });
-    })
-    .catch(e => {
-      console.log('Error fetching infinite page data: '+e);
-    });      
+  infinityLoader = () => {
+    document.querySelector('.loader').textContent = "Loading more gifs...";
+    // Limit total loaded gifs to under 200...that seems reasonable
+    if(this.state.offset > 200) {
+      document.querySelector('.loader').textContent = "I think that's enough gifs for now. Try another search or come back later.";
+    } else {
+      fetch(`https://api.giphy.com/v1/gifs/search?q=${this.state.query}&limit=10&offset=${this.state.offset}&api_key=dc6zaTOxFJmzC`)
+      .then(response => response.json())
+      .then(responseData => {
+        console.log('Infinity data fetched.');
+        this.setState({ 
+          gifs: this.state.gifs.concat(responseData.data),
+          offset: (responseData.pagination.offset+10),
+          loading: false
+        });
+      })
+      .catch(e => {
+        console.log('Error fetching infinite page data: '+e);
+      });  
+    }    
   }
 
   render() {
@@ -61,18 +66,20 @@ class App extends Component {
           <h1>gif search</h1>
           <SearchForm onSearch={this.performSearch} />
         </div>
-        <InfiniteScroll
+        <div id="gifs">
+          <InfiniteScroll
             pageStart={0}
-            loadMore={this.infinitySearch}
+            loadMore={this.infinityLoader}
             hasMore={true}
-            loader={<div className="loader">Loading ...</div>}
-        >
-          {
-            (this.state.loading)
-            ? <div style={{padding:'180px', borderTop:'100px solid teal'}} >Please enter a search above to see GIFs.</div>
-            : <div id="gifs"><GifList data={this.state.gifs} >Loading...</GifList></div>
-          }        
-        </InfiniteScroll>
+            loader={<div className="loader">Loading more gifs...</div>}
+          >
+            {
+              (this.state.loading)
+              ? "Please enter a search above to see GIFs."
+              : <GifList data={this.state.gifs} />
+            }
+          </InfiniteScroll>
+        </div>
         <div className="footer">gifs</div>
       </div>
     );
