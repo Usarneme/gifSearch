@@ -2,7 +2,7 @@
 
 Allows the application user to request gif assets from giphy which are then rendered on screen.
 
-[View a demo of the site here](https://ididnotknowicoulddothat.github.io/sites/gifSearch/)
+[Site demo at http://gifsearch4.herokuapp.com/](http://gifsearch4.herokuapp.com/)
 
 Tech used:
 * [Create React App](https://github.com/facebookincubator/create-react-app).
