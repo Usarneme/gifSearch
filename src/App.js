@@ -4,6 +4,8 @@ import SearchForm from './SearchForm';
 import InfiniteScroll from 'react-infinite-scroller';
 import './App.css';
 
+const apiKey = require('./secret.js')
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -21,7 +23,7 @@ class App extends Component {
 
   performSearch = (query = 'grand') => {
     // String literal to allow interpolation of query variable
-    fetch(`https://api.giphy.com/v1/gifs/search?q=${query}&limit=20&api_key=dc6zaTOxFJmzC`)
+    fetch(`https://api.giphy.com/v1/gifs/search?q=${query}&limit=20&api_key=${apiKey}`)
     .then(response => response.json())
     .then(responseData => {
       console.log('Search data fetched.');
@@ -43,7 +45,7 @@ class App extends Component {
     if(this.state.offset > 200) {
       document.querySelector('.loader').textContent = "I think that's enough gifs for now. Try another search or come back later.";
     } else {
-      fetch(`https://api.giphy.com/v1/gifs/search?q=${this.state.query}&limit=10&offset=${this.state.offset}&api_key=dc6zaTOxFJmzC`)
+      fetch(`https://api.giphy.com/v1/gifs/Search?q=${this.state.query || 'grand'}&offset=${this.state.offset}&api_key=${apiKey}&limit=10`)
       .then(response => response.json())
       .then(responseData => {
         console.log('Infinity data fetched.');
@@ -71,7 +73,7 @@ class App extends Component {
             pageStart={0}
             loadMore={this.infinityLoader}
             hasMore={true}
-            loader={<div className="loader">Loading more gifs...</div>}
+            loader={<div className="loader" key={8999}>Loading more gifs...</div>}
           >
             {
               (this.state.loading)
@@ -80,7 +82,9 @@ class App extends Component {
             }
           </InfiniteScroll>
         </div>
-        <div className="footer">gifs</div>
+        <div className="footer">
+          <img src="./PoweredBy_200px-White_HorizLogo.png" alt="Gif Search is Powered by the Giphy Developers API - Thanks Giphy"></img>
+        </div>
       </div>
     );
   }

@@ -24,18 +24,29 @@ a {
   color: initial;
 }
 
+h1 {
+  margin: 0;
+  padding: 0;
+}
+
 .header,
 .footer {
   min-height: 40px;
-  padding: 20px 0;
+  padding: 10px 0 5px 0;
   background-color: #eee;
   text-align: center;
+  display: grid;
+}
+
+.footer img {
+  margin: auto;
+  padding: 10px;
 }
 
 #gifs {
   margin-left: -40px;
-  border-top: 100px solid teal;
-  border-bottom: 100px solid teal;
+  border-top: 50px solid teal;
+  border-bottom: 50px solid teal;
 }
 
 .gifWrap {
