@@ -23,7 +23,7 @@ class App extends Component {
 
   performSearch = (query = 'grand') => {
     // String literal to allow interpolation of query variable
-    fetch(`https://api.giphy.com/v1/gifs/search?q=${query}&limit=20&api_key=${apiKey}`)
+    fetch(`https://api.gfycat.com/v1/gifs/search?q=${query}&limit=20&api_key=${apiKey}`)
     .then(response => response.json())
     .then(responseData => {
       console.log('Search data fetched.');
@@ -45,7 +45,7 @@ class App extends Component {
     if(this.state.offset > 200) {
       document.querySelector('.loader').textContent = "I think that's enough gifs for now. Try another search or come back later.";
     } else {
-      fetch(`https://api.giphy.com/v1/gifs/Search?q=${this.state.query || 'grand'}&offset=${this.state.offset}&api_key=${apiKey}&limit=10`)
+      fetch(`https://api.gfycat.com/v1/gifs/Search?q=${this.state.query || 'grand'}&offset=${this.state.offset}&api_key=${apiKey}&limit=10`)
       .then(response => response.json())
       .then(responseData => {
         console.log('Infinity data fetched.');

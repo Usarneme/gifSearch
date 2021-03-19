@@ -47,6 +47,7 @@ h1 {
   margin-left: -40px;
   border-top: 50px solid teal;
   border-bottom: 50px solid teal;
+  min-height: 90vh;
 }
 
 .gifWrap {
